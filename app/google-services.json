@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "873920637112",
+    "project_id": "luck-and-logic",
+    "storage_bucket": "luck-and-logic.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873920637112:android:f87c3dd61e03392b032c4d",
+        "android_client_info": {
+          "package_name": "com.example.luckandlogic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbDjzIjzsqkgI8EQw98g46cVnD6QYZ5Pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873920637112:android:6aad60c4744a9f1d032c4d",
+        "android_client_info": {
+          "package_name": "com.luckandlogic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbDjzIjzsqkgI8EQw98g46cVnD6QYZ5Pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
