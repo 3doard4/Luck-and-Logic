@@ -53,7 +53,6 @@ fun TelaCadastro(
             ),
         contentAlignment = Alignment.Center
     ) {
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -78,7 +77,6 @@ fun TelaCadastro(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Nipes
             val nipes = listOf("♠", "♥", "♦", "♣")
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -97,28 +95,10 @@ fun TelaCadastro(
 
             Spacer(modifier = Modifier.height(25.dp))
 
-            CampoCassino(
-                valor = nome,
-                aoMudar = { nome = it },
-                textoLabel = "Nome completo"
-            )
-            CampoCassino(
-                valor = email,
-                aoMudar = { email = it },
-                textoLabel = "E-mail"
-            )
-            CampoCassino(
-                valor = senha,
-                aoMudar = { senha = it },
-                textoLabel = "Senha",
-                senha = true
-            )
-            CampoCassino(
-                valor = confirmarSenha,
-                aoMudar = { confirmarSenha = it },
-                textoLabel = "Confirmar senha",
-                senha = true
-            )
+            CampoCassino(valor = nome, aoMudar = { nome = it }, textoLabel = "Nome completo")
+            CampoCassino(valor = email, aoMudar = { email = it }, textoLabel = "E-mail")
+            CampoCassino(valor = senha, aoMudar = { senha = it }, textoLabel = "Senha", senha = true)
+            CampoCassino(valor = confirmarSenha, aoMudar = { confirmarSenha = it }, textoLabel = "Confirmar senha", senha = true)
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -144,9 +124,7 @@ fun TelaCadastro(
                         }
                     }
                 },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 border = BorderStroke(2.dp, Color(0xFFFFD700)),
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
@@ -174,7 +152,6 @@ fun TelaCadastro(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // 🔽 Botão para voltar ao login
             TextButton(onClick = { aoLogar() }) {
                 Text(
                     text = "Já tem cadastro? Faça login!",
@@ -187,7 +164,6 @@ fun TelaCadastro(
     }
 }
 
-// Composable para os campos de texto
 @Composable
 fun CampoCassino(
     valor: String,
@@ -214,7 +190,6 @@ fun CampoCassino(
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color(0xFFFFD700),
             unfocusedBorderColor = Color(0xFFFFD700),
-            focusedLabelColor = Color(0xFFFFD700),
             cursorColor = Color(0xFFFFD700),
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White

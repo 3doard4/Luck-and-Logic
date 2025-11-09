@@ -13,24 +13,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.luckandlogic.R
-import com.google.firebase.auth.FirebaseAuth
+import com.example.luckandlogic.viewmodel.GameResultViewModel
+import kotlin.random.Random
 
 @Composable
-fun TelaLogin(
-    aoLogar: () -> Unit,
-    irParaCadastro: () -> Unit
+fun TelaRoleta(
+    aoVoltarMenu: () -> Unit,
+    viewModel: GameResultViewModel
 ) {
-    val fonteCassino = FontFamily(Font(R.font.cinzeldecorative_bold))
-
-    val auth = FirebaseAuth.getInstance()
-    var email by remember { mutableStateOf("") }
-    var senha by remember { mutableStateOf("") }
+    var numeroEscolhido by remember { mutableStateOf(0) }
+    var numeroSorteado by remember { mutableStateOf(-1) }
     var mensagem by remember { mutableStateOf("") }
-    var carregando by remember { mutableStateOf(false) }
+
+    val fonteCassino = FontFamily(Font(R.font.cinzeldecorative_bold))
 
     Box(
         modifier = Modifier
@@ -48,70 +46,75 @@ fun TelaLogin(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(30.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp)
         ) {
             Text(
-                text = "Luck and Logic",
+                text = "🎡 Roleta 🎡",
                 fontFamily = fonteCassino,
-                fontSize = 38.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFFFD700)
             )
 
-            Spacer(modifier = Modifier.height(40.dp))
-
-            CampoCassino(valor = email, aoMudar = { email = it }, textoLabel = "E-mail")
-            CampoCassino(valor = senha, aoMudar = { senha = it }, textoLabel = "Senha", senha = true)
-
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Button(
                 onClick = {
-                    carregando = true
-                    auth.signInWithEmailAndPassword(email, senha)
-                        .addOnCompleteListener { task ->
-                            carregando = false
-                            if (task.isSuccessful) {
-                                mensagem = "Login bem-sucedido!"
-                                aoLogar()
-                            } else {
-                                mensagem = "Erro: ${task.exception?.message}"
-                            }
-                        }
+                    numeroEscolhido = Random.nextInt(0, 36)
+                    numeroSorteado = Random.nextInt(0, 36)
+                    if (numeroEscolhido == numeroSorteado) {
+                        mensagem = "🎉 Você venceu! Número $numeroSorteado"
+                        viewModel.salvarResultado("Roleta", "Vitória")
+                    } else {
+                        mensagem = "💀 Você perdeu! Saiu o número $numeroSorteado"
+                        viewModel.salvarResultado("Roleta", "Derrota")
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 border = BorderStroke(2.dp, Color(0xFFFFD700)),
                 shape = RoundedCornerShape(50.dp),
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .defaultMinSize(minWidth = 180.dp)
                     .height(55.dp)
             ) {
                 Text(
-                    text = if (carregando) "Entrando..." else "ENTRAR",
+                    "Girar Roleta",
                     color = Color(0xFFFFD700),
                     fontFamily = fonteCassino,
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = mensagem,
-                color = Color.White,
+                color = Color(0xFFFFD700),
                 fontFamily = fonteCassino,
-                fontSize = 14.sp
+                fontSize = 18.sp
             )
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            TextButton(onClick = { irParaCadastro() }) {
+            Button(
+                onClick = aoVoltarMenu,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                border = BorderStroke(2.dp, Color(0xFFFFD700)),
+                shape = RoundedCornerShape(50.dp),
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 160.dp)
+                    .height(55.dp)
+            ) {
                 Text(
-                    text = "Não tem conta? Cadastre-se!",
+                    text = "Voltar ao Menu",
                     color = Color(0xFFFFD700),
                     fontFamily = fonteCassino,
-                    fontSize = 14.sp
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
                 )
             }
         }
