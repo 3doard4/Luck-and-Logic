@@ -54,7 +54,7 @@ fun TelaJogoDosDados(
             Text(
                 text = "🎲 Jogo dos Dados 🎲",
                 fontFamily = fonteCassino,
-                fontSize = 30.sp,
+                fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFFFD700)
             )

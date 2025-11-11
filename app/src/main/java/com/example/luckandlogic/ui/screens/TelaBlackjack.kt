@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.luckandlogic.R
+import com.example.luckandlogic.ui.components.ButtonCassino
 import com.example.luckandlogic.viewmodel.GameResultViewModel
 import kotlin.random.Random
 
@@ -44,11 +45,13 @@ fun TelaBlackjack(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            modifier = Modifier.padding(24.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .padding(24.dp)
+                .fillMaxWidth()
         ) {
             Text(
-                text = "🃏 Blackjack 🃏",
+                text = "🃏 BLACKJACK 🃏",
                 fontFamily = fonteCassino,
                 fontSize = 34.sp,
                 fontWeight = FontWeight.Bold,
@@ -56,14 +59,14 @@ fun TelaBlackjack(
             )
 
             Text(
-                text = "Sua pontuação: $jogador",
+                text = "SUA PONTUAÇÃO: $jogador",
                 color = Color(0xFFFFD700),
                 fontFamily = fonteCassino,
                 fontSize = 20.sp
             )
 
             Text(
-                text = "Pontuação do dealer: $dealer",
+                text = "PONTUAÇÃO DO DEALER: $dealer",
                 color = Color(0xFFFFD700),
                 fontFamily = fonteCassino,
                 fontSize = 20.sp
@@ -75,41 +78,41 @@ fun TelaBlackjack(
                     color = Color(0xFFFFD700),
                     fontFamily = fonteCassino,
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 10.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                ButtonCassino("Pegar carta") {
-                    jogador += Random.nextInt(1, 11)
-                    if (jogador > 21) {
-                        mensagem = "Você estourou! Dealer vence!"
-                        viewModel.salvarResultado("Blackjack", "Derrota")
-                    }
+            // 🔸 Agora temos os dois botões empilhados
+            ButtonCassino("Pegar carta") {
+                jogador += Random.nextInt(1, 11)
+                if (jogador > 21) {
+                    mensagem = "Você estourou! Dealer vence!"
+                    viewModel.salvarResultado("Blackjack", "Derrota")
                 }
+            }
 
-                ButtonCassino("Parar") {
-                    dealer = Random.nextInt(15, 23)
-                    mensagem = when {
-                        dealer > 21 || jogador > dealer -> {
-                            viewModel.salvarResultado("Blackjack", "Vitória")
-                            "Você venceu!"
-                        }
-                        dealer == jogador -> {
-                            viewModel.salvarResultado("Blackjack", "Empate")
-                            "Empate!"
-                        }
-                        else -> {
-                            viewModel.salvarResultado("Blackjack", "Derrota")
-                            "Dealer venceu!"
-                        }
+            ButtonCassino("Parar") {
+                dealer = Random.nextInt(15, 23)
+                mensagem = when {
+                    dealer > 21 || jogador > dealer -> {
+                        viewModel.salvarResultado("Blackjack", "Vitória")
+                        "Você venceu!"
+                    }
+                    dealer == jogador -> {
+                        viewModel.salvarResultado("Blackjack", "Empate")
+                        "Empate!"
+                    }
+                    else -> {
+                        viewModel.salvarResultado("Blackjack", "Derrota")
+                        "Dealer venceu!"
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             ButtonCassino("Voltar ao menu", aoVoltarMenu)
         }
